@@ -3,6 +3,6 @@ kgaughan.github.io
 
 Experiments with GitHub Pages.
 
-talideon.com_ is currently pointing at the site.
+talideon.info_ is currently pointing at the site.
 
-.. _talideon.com: http://talideon.com/
+.. _talideon.info: http://talideon.info/
