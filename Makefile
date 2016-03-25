@@ -1,11 +1,9 @@
 PELICAN=pelican
-PELICANOPTS=
 
-BASEDIR=$(CURDIR)
-INPUTDIR=$(BASEDIR)/content
-OUTPUTDIR=$(BASEDIR)/output
-CONFFILE=$(BASEDIR)/pelicanconf.py
-PUBLISHCONF=$(BASEDIR)/publishconf.py
+INPUTDIR:=$(CURDIR)/content
+OUTPUTDIR:=$(CURDIR)/output
+CONFFILE:=$(CURDIR)/pelicanconf.py
+PUBLISHCONF:=$(CURDIR)/publishconf.py
 
 help:
 	@echo 'Makefile for a pelican Web site                                        '
@@ -23,19 +21,22 @@ html: clean $(OUTPUTDIR)/index.html
 	@echo 'Done'
 
 $(OUTPUTDIR)/%.html:
-	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE)
 
 clean:
 	rm -rf $(OUTPUTDIR)/feeds
 	find $(OUTPUTDIR) -name \*.html -delete
 
 regenerate: clean
-	$(PELICAN) -r $(INPUTDIR) -o $(OUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	$(PELICAN) -r $(INPUTDIR) -o $(OUTDIR) -s $(CONFFILE)
 
 serve:
 	cd $(OUTPUTDIR) && python -m SimpleHTTPServer
 
 publish:
-	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
+	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF)
+
+gh-publish: publish
+	./deploy.sh
 
 .PHONY: html help clean regenerate serve publish
