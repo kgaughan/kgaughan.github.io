@@ -25,7 +25,7 @@ $(OUTPUTDIR)/%.html:
 
 clean:
 	rm -rf $(OUTPUTDIR)/feeds
-	find $(OUTPUTDIR) -name \*.html -delete
+	if test -e $(OUTPUTDIR); then find $(OUTPUTDIR) -name \*.html -delete; fi
 
 regenerate: clean
 	$(PELICAN) -r $(INPUTDIR) -o $(OUTDIR) -s $(CONFFILE)
